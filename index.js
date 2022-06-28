@@ -37,10 +37,17 @@ async function main() {
 
       Coin.findOne({symbol: symbol}, async (err, coin) => {
         if (coin) {
-          if ((1 - ticker[symbol] / coin.price) > 0.02) {
+          if (((ticker[symbol] / coin.price) - 1 ) > 0.02) {
             bot.sendMessage(
               -1001727687759,
-              `${symbol} - ${coin.price} -> ${ticker[symbol]}`
+              `++ ${symbol} - ${coin.price} -> ${ticker[symbol]}`
+            )
+          }
+
+          if ((1 - (ticker[symbol] / coin.price)) > 0.02) {
+            bot.sendMessage(
+              -1001727687759,
+              `-- ${symbol} - ${coin.price} -> ${ticker[symbol]}`
             )
           }
 
