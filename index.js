@@ -25,7 +25,7 @@ async function main() {
 
   const binance = new Binance()
 
-  const bot = new TelegramBot(token, {polling: true});
+  const bot = new TelegramBot(token);
 
   schedule.scheduleJob('*/10 * * * *', async function () {
     let ticker = await binance.prices();
