@@ -27,7 +27,7 @@ async function main() {
 
   const bot = new TelegramBot(token);
 
-  schedule.scheduleJob('*/10 * * * *', async function () {
+  schedule.scheduleJob('*/5 * * * *', async function () {
     let ticker = await binance.prices();
 
     for (const symbol of Object.keys(ticker)) {
@@ -37,7 +37,7 @@ async function main() {
 
       Coin.findOne({symbol: symbol}, async (err, coin) => {
         if (coin) {
-          if ((1 - ticker[symbol] / coin.price) > 0.05) {
+          if ((1 - ticker[symbol] / coin.price) > 0.02) {
             bot.sendMessage(
               -1001727687759,
               `${symbol} - ${coin.price} -> ${ticker[symbol]}`
