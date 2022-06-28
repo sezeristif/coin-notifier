@@ -1,0 +1,16 @@
+{
+  "name": "bitcoin-notifier",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "mongodb": "3.7",
+    "mongoose": "^6.3.5",
+    "node-binance-api": "^0.13.1",
+    "node-schedule": "^2.1.0",
+    "node-telegram-bot-api": "^0.58.0"
+  }
+}
