@@ -3,7 +3,7 @@ const Binance = require('node-binance-api');
 const TelegramBot = require('node-telegram-bot-api');
 const {mongoose} = require("mongoose");
 const {Schema} = require("mongoose");
-const url = "mongodb://127.0.0.1:27017/bitcoin-notifier";
+const url = "mongodb+srv://sezer_user:wdHymqcILRzhMgO4@bitcoinnotifier.n7lk9.mongodb.net/?retryWrites=true&w=majority";
 const token = '5418906922:AAEpbEGP5N1eKo0mV21NTeQ5UpgtulLkPdo';
 
 const coinSchema = new Schema({
@@ -30,14 +30,14 @@ async function main() {
   schedule.scheduleJob('*/10 * * * *', async function () {
     let ticker = await binance.prices();
 
-    Object.keys(ticker).forEach((symbol) => {
-      if(!String(symbol).endsWith("USDT")){
-        return
+    for (const symbol of Object.keys(ticker)) {
+      if (!String(symbol).endsWith("USDT")) {
+        continue;
       }
 
       Coin.findOne({symbol: symbol}, async (err, coin) => {
         if (coin) {
-          if ((1 - ticker[symbol] /coin.price) > 0.05) {
+          if ((1 - ticker[symbol] / coin.price) > 0.05) {
             bot.sendMessage(
               -1001727687759,
               `${symbol} - ${coin.price} -> ${ticker[symbol]}`
@@ -50,7 +50,7 @@ async function main() {
           await Coin.create({symbol: symbol, price: ticker[symbol]})
         }
       })
-    })
+    }
   });
 }
 
