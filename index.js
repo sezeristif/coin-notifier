@@ -25,9 +25,28 @@ async function main() {
 
   const binance = new Binance()
 
-  const bot = new TelegramBot(token);
+  const botOptions = {polling: true}
+  const bot = new TelegramBot(token, botOptions);
 
-  schedule.scheduleJob('*/5 * * * *', async function () {
+  bot.onText(/\/echo (.+)/, (msg, match) => {
+    const message = match[1];
+    if (message === "stop") {
+      schedule.gracefulShutdown();
+    }
+
+    if (message === "start") {
+      schedule.gracefulShutdown();
+      schedule.scheduleJob('*/5 * * * *', bitcoinNotifier);
+    }
+
+    if (message === "set-minute") {
+
+    }
+  });
+
+  bot.on("polling_error", console.log);
+
+  const bitcoinNotifier = async () => {
     let ticker = await binance.prices();
 
     for (const symbol of Object.keys(ticker)) {
@@ -58,7 +77,9 @@ async function main() {
         }
       })
     }
-  });
+  }
+
+  schedule.scheduleJob('*/5 * * * *', bitcoinNotifier);
 }
 
 main().then(console.log).catch(console.error)
