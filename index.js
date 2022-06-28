@@ -40,14 +40,14 @@ async function main() {
           if (((ticker[symbol] / coin.price) - 1 ) > 0.02) {
             bot.sendMessage(
               -1001727687759,
-              `++ ${symbol} - ${coin.price} -> ${ticker[symbol]}`
+              `++ %${((ticker[symbol] / coin.price) - 1 ) * 100} ${symbol} - ${coin.price} -> ${ticker[symbol]}`
             )
           }
 
           if ((1 - (ticker[symbol] / coin.price)) > 0.02) {
             bot.sendMessage(
               -1001727687759,
-              `-- ${symbol} - ${coin.price} -> ${ticker[symbol]}`
+              `-- %${(1 - (ticker[symbol] / coin.price)) * 100} ${symbol} - ${coin.price} -> ${ticker[symbol]}`
             )
           }
 
