@@ -36,7 +36,7 @@ async function main() {
 
     if (message === "start") {
       schedule.gracefulShutdown();
-      schedule.scheduleJob('*/5 * * * *', bitcoinNotifier);
+      schedule.scheduleJob('*/2 * * * *', bitcoinNotifier);
     }
 
     if (message === "set-minute") {
@@ -79,7 +79,7 @@ async function main() {
     }
   }
 
-  schedule.scheduleJob('*/5 * * * *', bitcoinNotifier);
+  schedule.scheduleJob('*/2 * * * *', bitcoinNotifier);
 }
 
 main().then(console.log).catch(console.error)
