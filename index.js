@@ -55,13 +55,7 @@ async function main() {
       )
       schedule.scheduleJob('*/2 * * * *', bitcoinNotifier);
     }
-
-    if (message === "set-minute") {
-
-    }
   });
-
-  bot.on("polling_error", console.log);
 
   const bitcoinNotifier = async () => {
     let ticker = await binance.prices();
