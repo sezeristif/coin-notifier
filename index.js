@@ -5,6 +5,17 @@ const {mongoose} = require("mongoose");
 const {Schema} = require("mongoose");
 const url = "mongodb+srv://sezer_user:wdHymqcILRzhMgO4@bitcoinnotifier.n7lk9.mongodb.net/?retryWrites=true&w=majority";
 const token = '5418906922:AAEpbEGP5N1eKo0mV21NTeQ5UpgtulLkPdo';
+const express = require('express')
+const app = express()
+const port = 3000
+
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
 
 const coinSchema = new Schema({
   symbol: {
