@@ -34,7 +34,7 @@ async function main() {
 
   const binance = new Binance()
 
-  const bot = new TelegramBot(token);
+  const bot = new TelegramBot(token, { polling: true });
 
   bot.onText(/\/echo (.+)/, (msg, match) => {
     const message = match[1];
