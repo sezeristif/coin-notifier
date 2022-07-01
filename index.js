@@ -7,7 +7,7 @@ const url = "mongodb+srv://sezer_user:wdHymqcILRzhMgO4@bitcoinnotifier.n7lk9.mon
 const token = '5418906922:AAEpbEGP5N1eKo0mV21NTeQ5UpgtulLkPdo';
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 8080
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -29,6 +29,8 @@ const Coin = mongoose.model("Coin", coinSchema);
 async function main() {
   await mongoose.connect(url);
   console.log("Connected successfully to server");
+
+  Coin.collection.drop();
 
   const binance = new Binance()
 
