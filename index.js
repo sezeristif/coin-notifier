@@ -56,18 +56,24 @@ async function main() {
 
       Coin.findOne({symbol: symbol}, async (err, coin) => {
         if (coin) {
-          if (((ticker[symbol] / coin.price) - 1 ) > 0.02) {
-            bot.sendMessage(
-              -1001727687759,
-              `++ %${((ticker[symbol] / coin.price) - 1 ) * 100} ${symbol} - ${coin.price} -> ${ticker[symbol]}`
-            )
+          if (((ticker[symbol] / coin.price) - 1) > 0.02) {
+            try {
+              bot.sendMessage(
+                -1001727687759,
+                `++ %${((ticker[symbol] / coin.price) - 1) * 100} ${symbol} - ${coin.price} -> ${ticker[symbol]}`
+              )
+            } catch (error) {
+            }
           }
 
           if ((1 - (ticker[symbol] / coin.price)) > 0.02) {
-            bot.sendMessage(
-              -1001727687759,
-              `-- %${(1 - (ticker[symbol] / coin.price)) * 100} ${symbol} - ${coin.price} -> ${ticker[symbol]}`
-            )
+            try {
+              bot.sendMessage(
+                -1001727687759,
+                `-- %${(1 - (ticker[symbol] / coin.price)) * 100} ${symbol} - ${coin.price} -> ${ticker[symbol]}`
+              )
+            } catch (error) {
+            }
           }
 
           coin.price = ticker[symbol]
