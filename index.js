@@ -30,7 +30,7 @@ async function main() {
   await mongoose.connect(url);
   console.log("Connected successfully to server");
 
-  Coin.collection.drop();
+  await Coin.collection.drop();
 
   const binance = new Binance()
 
