@@ -1,6 +1,6 @@
+const TelegramBot = require('node-telegram-bot-api');
 const schedule = require('node-schedule');
 const Binance = require('node-binance-api');
-const TelegramBot = require('node-telegram-bot-api');
 const {mongoose} = require("mongoose");
 const {Schema} = require("mongoose");
 const url = "mongodb+srv://sezer_user:wdHymqcILRzhMgO4@bitcoinnotifier.n7lk9.mongodb.net/?retryWrites=true&w=majority";
@@ -11,10 +11,6 @@ const port = 3000
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
-})
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
 })
 
 const coinSchema = new Schema({
@@ -98,4 +94,11 @@ async function main() {
   schedule.scheduleJob('*/2 * * * *', bitcoinNotifier);
 }
 
-main().then(console.log).catch(console.error)
+main().then(() => {
+  app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+  })
+})
+
+
+
