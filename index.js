@@ -34,16 +34,25 @@ async function main() {
 
   const binance = new Binance()
 
-  const bot = new TelegramBot(token, { polling: true });
+  const bot = new TelegramBot(token, {polling: true});
 
   bot.onText(/\/echo (.+)/, (msg, match) => {
     const message = match[1];
     if (message === "stop") {
       schedule.gracefulShutdown();
+      bot.sendMessage(
+        -1001727687759,
+     "stopped"
+      )
     }
 
     if (message === "start") {
       schedule.gracefulShutdown();
+      Coin.collection.drop();
+      bot.sendMessage(
+        -1001727687759,
+        "started"
+      )
       schedule.scheduleJob('*/2 * * * *', bitcoinNotifier);
     }
 
@@ -68,7 +77,7 @@ async function main() {
             try {
               bot.sendMessage(
                 -1001727687759,
-                `++ %${((ticker[symbol] / coin.price) - 1) * 100} ${symbol} - ${coin.price} -> ${ticker[symbol]}`
+                `++ %${parseInt(((ticker[symbol] / coin.price) - 1) * 100)} ${symbol} - ${coin.price} -> ${ticker[symbol]}`
               )
             } catch (error) {
             }
@@ -78,7 +87,7 @@ async function main() {
             try {
               bot.sendMessage(
                 -1001727687759,
-                `-- %${(1 - (ticker[symbol] / coin.price)) * 100} ${symbol} - ${coin.price} -> ${ticker[symbol]}`
+                `-- %${parseInt((1 - (ticker[symbol] / coin.price)) * 100)} ${symbol} - ${coin.price} -> ${ticker[symbol]}`
               )
             } catch (error) {
             }
